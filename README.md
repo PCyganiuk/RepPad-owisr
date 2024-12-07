@@ -49,10 +49,11 @@ Thanks them for providing efficient implementation.
 
 Please cite our paper if you use this code.
 ```
-@article{dang2024repeated,
+@inproceedings{dang2024repeated,
   title={Repeated Padding for Sequential Recommendation},
   author={Dang, Yizhou and Liu, Yuting and Yang, Enneng and Guo, Guibing and Jiang, Linying and Wang, Xingwei and Zhao, Jianzhe},
-  journal={arXiv preprint arXiv:2403.06372},
+  booktitle={Proceedings of the 18th ACM Conference on Recommender Systems},
+  pages={497--506},
   year={2024}
 }
 ```
