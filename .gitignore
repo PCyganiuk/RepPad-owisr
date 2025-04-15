@@ -1,0 +1,7 @@
+/venv/
+/SASRec/src/__pycache__
+/format-data/yoochoose-buys.dat
+/format-data/yoochoose-clicks.dat
+/format-data/preprocessed_yoochoose/
+/SASRec/output
+/GRU4Rec/output

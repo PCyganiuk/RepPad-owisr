@@ -1,9 +1,6 @@
 import os
 import pandas as pd
-from collections import defaultdict
 
-
-# @TODO Nie działa dokładnie tak jak ma być poprwaię później
 # Define file paths
 input_file = 'yoochoose-clicks.dat'
 output_dir = 'preprocessed_yoochoose'
@@ -41,23 +38,15 @@ def map_item_ids(item_list):
 print("Mapping item IDs...")
 session_item_map = session_item_map.apply(map_item_ids)
 
-# Split into training and test sets
-print("Splitting into training and test sets...")
-train_sequences = []
-test_sequences = []
-
-for session_id, items in session_item_map.items():
-    train_sequences.append(items[:-1])
-    test_sequences.append(items[-1:])
-
-# Save the processed data
+# Save the full sequences in one file (sorted by SessionID)
 print("Saving processed data...")
-with open(os.path.join(output_dir, 'train.txt'), 'w') as f_train, \
-     open(os.path.join(output_dir, 'test.txt'), 'w') as f_test:
-    for train_seq in train_sequences:
-        f_train.write(' '.join(map(str, train_seq)) + '\n')
-    for test_seq in test_sequences:
-        f_test.write(' '.join(map(str, test_seq)) + '\n')
+session_item_map = session_item_map.sort_index()
+
+with open(os.path.join(output_dir, 'data.txt'), 'w') as f_out:
+    for idx, item_seq in enumerate(session_item_map, start=1):
+        f_out.write(f"{idx} " + ' '.join(map(str, item_seq)) + '\n')
+
+
 
 # Save the item ID mapping
 with open(os.path.join(output_dir, 'item_mapping.txt'), 'w') as f_map:
