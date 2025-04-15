@@ -240,6 +240,19 @@ def recall_at_k(actual, predicted, topk):
             true_users += 1
     return sum_recall / true_users
 
+def calculate_mrr(actual, predicted):
+    sum_mrr = 0.0
+    num_users = len(predicted)
+    for i in range(num_users):
+        act_set = set(actual[i])
+        pred_list = predicted[i]
+        for j, pred_item in enumerate(pred_list):
+            if pred_item in act_set:
+                sum_mrr += 1 / (j+1)
+                break
+    return sum_mrr / num_users
+
+
 
 def apk(actual, predicted, k=10):
     """
