@@ -4,7 +4,7 @@ import numpy as np
 from tqdm import tqdm
 import torch
 from torch.optim import Adam
-from utils import recall_at_k, ndcg_k, get_metric
+from utils import recall_at_k, ndcg_k, calculate_mrr, get_metric
 
 
 class Trainer:
@@ -61,6 +61,7 @@ class Trainer:
 
     def get_full_sort_score(self, epoch, answers, pred_list):
         recall, ndcg = [], []
+        mrr = calculate_mrr(answers, pred_list)
         for k in [5, 10, 15, 20]:
             recall.append(recall_at_k(answers, pred_list, k))
             ndcg.append(ndcg_k(answers, pred_list, k))
@@ -68,7 +69,8 @@ class Trainer:
             "Epoch": epoch,
             "HIT@5": '{:.4f}'.format(recall[0]), "NDCG@5": '{:.4f}'.format(ndcg[0]),
             "HIT@10": '{:.4f}'.format(recall[1]), "NDCG@10": '{:.4f}'.format(ndcg[1]),
-            "HIT@20": '{:.4f}'.format(recall[3]), "NDCG@20": '{:.4f}'.format(ndcg[3])
+            "HIT@20": '{:.4f}'.format(recall[3]), "NDCG@20": '{:.4f}'.format(ndcg[3]),
+            "MRR": '{:.4f}'.format(mrr)
         }
         print(post_fix)
         with open(self.args.log_file, 'a') as f:

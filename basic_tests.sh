@@ -1,5 +1,5 @@
 #!/bin/bash
-dataset=(Clicks_50k Toys_and_Games Beauty Sports_and_Outdoors Home Yelp)
+dataset=(Clicks_20k_filtered Toys_and_Games Beauty Sports_and_Outdoors Home Yelp)
 
 cd SASRec/src
 
